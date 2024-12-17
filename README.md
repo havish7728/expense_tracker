@@ -26,7 +26,7 @@ Follow these steps to run the project locally:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/expense-tracker.git
+   git clone https://github.com/havish7728/expense-tracker.git
    cd expense-tracker
    ```
 
@@ -34,7 +34,7 @@ Follow these steps to run the project locally:
 
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   venv/bin/activate
    ```
 
 3. Install the required dependencies:
