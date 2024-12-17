@@ -1,0 +1,65 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="home-container">
+        <h1>Welcome to the Expense Tracker!</h1>
+        <p>This is the home page of the Expense Tracker application.</p>
+        <div class="auth-links">
+            <p><a href="{% url 'login' %}" class="btn btn-primary">Login</a> | <a href="{% url 'register' %}" class="btn btn-secondary">Register</a></p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .home-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .home-container h1 {
+            font-size: 36px;
+            color: #333;
+        }
+
+        .home-container p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .auth-links a {
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .auth-links .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .auth-links .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .auth-links .btn-secondary {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .auth-links .btn-secondary:hover {
+            background-color: #218838;
+        }
+
+    </style>
+{% endblock %}

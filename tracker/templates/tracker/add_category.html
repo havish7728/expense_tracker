@@ -1,0 +1,122 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <div class="form-container">
+    <h2 class="form-title">Add Category</h2>
+    <form method="POST" class="category-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="submit-btn">Add Category</button>
+    </form>
+
+    <div class="form-links">
+      <a href="{% url 'add_expense' %}" class="link-btn">Go to Add Expense</a>
+    </div>
+
+    {% if form.errors %}
+      <div class="error">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <style>
+    /* Container for the form */
+    .form-container {
+      width: 80%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+    }
+
+    .form-title {
+      font-size: 28px;
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Styling for form elements */
+    .category-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .category-form p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .category-form input, .category-form select, .category-form textarea {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      width: 100%;
+    }
+
+    .submit-btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #218838;
+    }
+
+    /* Links section */
+    .form-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .link-btn {
+      font-size: 16px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .link-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Error handling */
+    .error {
+      margin-top: 20px;
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .error ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .error li {
+      font-size: 16px;
+    }
+
+  </style>
+{% endblock %}
