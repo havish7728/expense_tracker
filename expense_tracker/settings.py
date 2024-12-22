@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-)mgnso3o)@88#9^ttmvug1(bm-&pt3fh+1h(9_$&rc_93szus2
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_SECURE = False
 
 # Application definition
 
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_otp.plugins.otp_email',
     'tracker',
 ]
 
@@ -48,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_otp.middleware.OTPMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware'
 ]
 
 ROOT_URLCONF = 'expense_tracker.urls'
@@ -133,3 +137,13 @@ LOGOUT_REDIRECT_URL = '/'
 
 SESSION_COOKIE_AGE = 3600  # 1 hour in seconds
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'heruko299@gmail.com'
+EMAIL_HOST_PASSWORD = 'fexk gvsu hkuy avcn'
+
+AUTH_USER_MODEL = 'auth.User'  # Default Django User model

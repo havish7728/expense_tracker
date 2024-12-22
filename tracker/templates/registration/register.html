@@ -11,6 +11,9 @@
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
         <p>Already have an account? <a href="{% url 'login' %}" class="link">Login here</a></p>
+        <p class="otp-instruction">
+            After registration, an OTP will be sent to your registered email for verification.
+        </p>
     </div>
 {% endblock %}
 
@@ -35,6 +38,7 @@
         .auth-container p {
             font-size: 16px;
             color: #555;
+            margin-top: 10px;
         }
 
         .form-group {
@@ -83,6 +87,12 @@
 
         .link:hover {
             text-decoration: underline;
+        }
+
+        .otp-instruction {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
         }
     </style>
 {% endblock %}
