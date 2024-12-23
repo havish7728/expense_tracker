@@ -27,7 +27,7 @@ class OTP(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def is_valid(self):
-        now = timezone.now()  # Use timezone-aware current time
+        now = timezone.now()
         expiration_time = now + timedelta(minutes=5)
-        print(f"Current time: {now}, Expiration time: {expiration_time}, Valid: {now <= expiration_time}")  # Debug output
+        print(f"Current time: {now}, Expiration time: {expiration_time}, Valid: {now <= expiration_time}") 
         return now <= expiration_time

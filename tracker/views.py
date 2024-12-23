@@ -25,7 +25,7 @@ def login_view(request):
                 login(request, user)
                 request.session['is_verified'] = False
                 messages.success(request, 'Login successful. Please verify via OTP.')
-                return redirect('send_otp')  # Redirect to OTP sending
+                return redirect('send_otp') 
         else:
             messages.error(request, 'Invalid credentials. Please try again.')
     else:
@@ -51,11 +51,11 @@ def register(request):
 
 @login_required
 def send_otp(request):
-    email = request.user.email  # Use the logged-in user's email
+    email = request.user.email
     otp = generate_otp()
 
     OTP.objects.update_or_create(email=email, defaults={'otp': otp})
-    request.session['email'] = email  # Store email in session
+    request.session['email'] = email
 
     send_otp_email(email, otp)
     messages.success(request, f'OTP has been sent to {email}. Please verify.')
@@ -64,12 +64,12 @@ def send_otp(request):
 
 @login_required
 def verify_otp(request):
-    email = request.user.email  # Use the logged-in user's email
+    email = request.user.email
     if request.method == 'POST':
         otp = request.POST.get('otp')
         try:
             otp_entry = OTP.objects.get(email=email)
-            if str(otp_entry.otp) == str(otp) and otp_entry.is_valid():  # Corrected usage
+            if str(otp_entry.otp) == str(otp) and otp_entry.is_valid():
                 request.session['is_verified'] = True
                 otp_entry.delete()
                 messages.success(request, 'OTP verified successfully!')
@@ -139,6 +139,13 @@ def remove_expense(request,expense_id):
 
 @login_required
 def logout_view(request):
-    logout(request)
-    messages.success(request, 'You have been logged out.')
-    return redirect('home')
+    if request.method == "POST":
+        confirm = request.POST.get("confirm")
+        if confirm == "yes":
+            logout(request)
+            messages.success(request, "You have been logged out.")
+            return redirect("home")
+        else:
+            return redirect("dashboard") 
+
+    return render(request, "registration/logout.html")

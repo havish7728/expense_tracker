@@ -1,0 +1,53 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="confirm-container">
+    <h2>Are you sure you want to log out?</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="confirm" value="yes" class="btn btn-danger">Yes, Logout</button>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .confirm-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        text-align: center;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .confirm-container h2 {
+        margin-bottom: 20px;
+    }
+    .btn {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+        text-decoration: none;
+    }
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>
+{% endblock %}
