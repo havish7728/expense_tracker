@@ -40,6 +40,10 @@
             </tbody>
         </table>
     </div>
+    <h4>Spending Trends</h4>
+    <div class="chart-container">
+        <img src="{% url 'pie-chart' %}" alt="Spending Pie Chart" class="img-fluid">
+    </div>
 
 {% endblock %}
 
@@ -116,5 +120,13 @@
         .btn-danger:hover {
             background-color: #c82333;
         }
+    .chart-container {
+    text-align: center;
+    margin-bottom: 30px;
+    }
+    .img-fluid {
+    max-width: 100%;
+    height: auto;
+    }
     </style>
 {% endblock %}

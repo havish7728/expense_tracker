@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
+from django.db import models
 from .models import Category, Expense
 from .forms import CategoryForm, ExpenseForm,CustomUserCreationForm
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
@@ -8,8 +9,13 @@ from django.contrib.auth import logout,login,authenticate
 from django.contrib.auth.models import User
 from .utils import generate_otp,send_otp_email
 from django.core.cache import cache
-from .models import OTP
+from .models import OTP,Expense
 from .utils import generate_otp, send_otp_email
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from io import BytesIO
+from django.http import HttpResponse
 
 def home(request):
     return render(request, 'home.html')
@@ -88,6 +94,12 @@ def dashboard(request):
         return redirect('send_otp')
     print(f"User: {request.user}")
     expenses = Expense.objects.filter(user=request.user).order_by('-date')
+    category_data = (
+        expenses.values('category__name') .annotate(total_amount=models.Sum('amount')) .order_by('-total_amount')  
+    )
+
+    categories = [entry['category__name'] for entry in category_data]
+    amounts = [entry['total_amount'] for entry in category_data]
     print(expenses)
     total_expense = sum(exp.amount for exp in expenses)
     print(f"Total Expense: {total_expense}") 
@@ -130,6 +142,27 @@ def add_category(request):
         form = CategoryForm()
 
     return render(request, 'tracker/add_category.html', {'form': form})
+
+@login_required
+def pie_chart_view(request):
+    # Example: Group expenses by category and sum amounts
+    expenses = Expense.objects.filter(user=request.user)
+    categories = expenses.values_list('category__name', flat=True).distinct()
+    data = {category: expenses.filter(category__name=category).aggregate(total=models.Sum('amount'))['total'] for category in categories}
+
+    # Generate pie chart
+    plt.figure(figsize=(6, 6))
+    plt.pie(data.values(), labels=data.keys(), autopct='%1.1f%%', startangle=140)
+    plt.title('Spending by Category')
+
+    # Save chart to a BytesIO buffer
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plt.close()
+
+    # Serve the image
+    return HttpResponse(buffer, content_type='image/png')
 
 @login_required
 def remove_expense(request,expense_id):

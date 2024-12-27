@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-)mgnso3o)@88#9^ttmvug1(bm-&pt3fh+1h(9_$&rc_93szus2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    '.ngrok-free.app',  # Add your Ngrok domain here
+]
+
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_SECURE = False
 
@@ -147,3 +152,7 @@ EMAIL_HOST_USER = 'heruko299@gmail.com'
 EMAIL_HOST_PASSWORD = 'fexk gvsu hkuy avcn'
 
 AUTH_USER_MODEL = 'auth.User'  # Default Django User model
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.ngrok-free.app',
+]

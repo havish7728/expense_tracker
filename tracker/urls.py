@@ -11,6 +11,7 @@ urlpatterns=[
     path('add-expense/', views.add_expense, name='add_expense'),
     path('add-category/', views.add_category, name='add_category'),
     path('remove-expense/<int:expense_id>',views.remove_expense,name='remove-expense'),
+    path('pie-chart/', views.pie_chart_view, name='pie-chart'),
 
     path('send-otp/', views.send_otp, name='send_otp'),
     path('verify-otp/', views.verify_otp, name='verify_otp'),
