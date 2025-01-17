@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '.ngrok-free.app',  # Add your Ngrok domain here
+    '.ngrok-free.app',
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
